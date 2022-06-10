@@ -25,7 +25,10 @@ form.addEventListener("submit", e => {
 
 joinRoomButton.addEventListener("click", () => {
     const room = roomInput.value;
-    socket.emit("join-room", room);
+    socket.emit("join-room", room, msgFromServer => {
+        displayMessage(msgFromServer);
+        alert(msgFromServer);//Make Sure that the Callback Function is the Last Thing Passed to this emit() function
+    });
 });
 
 function displayMessage(message) {

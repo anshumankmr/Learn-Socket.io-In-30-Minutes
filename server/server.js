@@ -15,9 +15,10 @@ io.on('connection',socket => {
             // broadcast function is implicity applied
         }
     });
-    socket.on('join-room',(room) => {
+    socket.on('join-room',(room,cb) => {
         socket.join(room);//Join a Specific Room by binding two or more sockets to a particular socket label???
         // a particular socket can be a part  of multiple rooms as well
+        cb(`Joined Room Number ${room}`);
     })
 
 })
