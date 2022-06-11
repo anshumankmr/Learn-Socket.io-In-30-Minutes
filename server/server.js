@@ -5,6 +5,22 @@ const io = require('socket.io')(3000,{
         //Added second URL to solve XHR issue on client side
     }
 })
+const userIo = io.of('/user');
+userIo.on("connection",socket => {
+    console.log(`connected to user namespace ${socket.username}`);
+});
+userIo.use((socket, next) => {
+    //next passed to next middleware function
+    if (socket.handshake.auth.token){
+        socket.username = getUsernameFromToken(socket.handshake.auth.token);
+        next();
+    } else {
+        next(new Error("Please send Token"));
+    }
+});
+function getUsernameFromToken(token){
+    return token;
+}
 io.on('connection',socket => {
     console.log(socket.id);//Print the Random ID given to a Socket
     socket.on('send-message',(string,roomnumber,object) => {// send any number of argument and receive any number
