@@ -37,7 +37,8 @@ io.on('connection',socket => {
         socket.join(room);//Join a Specific Room by binding two or more sockets to a particular socket label???
         // a particular socket can be a part  of multiple rooms as well
         cb(`Joined Room Number ${room}`);
-    })
+    });
+    socket.on('ping',n => console.log(n));
 
 })
 
