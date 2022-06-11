@@ -1,6 +1,8 @@
+const { instrument } = require('@socket.io/admin-ui');
 const io = require('socket.io')(3000,{
     cors: {
-        origin: ['http://localhost:8080'] // Solve CORS issue by giving an array  of allowed domain names
+        origin: ['http://localhost:8080','https://admin.socket.io'] // Solve CORS issue by giving an array  of allowed domain names
+        //Added second URL to solve XHR issue on client side
     }
 })
 io.on('connection',socket => {
@@ -22,3 +24,5 @@ io.on('connection',socket => {
     })
 
 })
+
+instrument(io, {auth: false});
